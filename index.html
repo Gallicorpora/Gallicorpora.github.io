@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Project</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #475569;
+            --secondary-color: #64748b;
+            --accent-color: #0ea5e9;
+            --dark-bg: #334155;
+            --text-color: #1e293b;
+            --light-text: #64748b;
+            --light-bg: #f8fafc;
+            --white: #ffffff;
+            --border-color: #e2e8f0;
+            --sidebar-width: 280px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: #fafbfc;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--white);
+            border-right: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 2rem 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 0 2rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-tagline {
+            font-size: 0.85rem;
+            color: var(--light-text);
+            line-height: 1.4;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0 1rem;
+        }
+
+        .sidebar-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .sidebar-link:hover {
+            background: var(--light-bg);
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        .sidebar-submenu {
+            list-style: none;
+            padding-left: 1.5rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .sidebar-item:hover .sidebar-submenu {
+            display: block;
+        }
+
+        .sidebar-sublink {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--light-text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            border-radius: 6px;
+        }
+
+        .sidebar-sublink:hover {
+            color: var(--accent-color);
+            background: var(--light-bg);
+        }
+
+        /* Mobile menu toggle */
+        .mobile-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: var(--white);
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            min-height: 100vh;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: var(--text-color);
+            padding: 5rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2364748b' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .stats-banner {
+            background: var(--white);
+            border-bottom: 1px solid var(--border-color);
+            padding: 3rem 2rem;
+        }
+
+        .stats-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-description {
+            font-size: 0.9rem;
+            color: var(--light-text);
+            margin-top: 0.25rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 3rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+        }
+
+        h2 {
+            font-size: 2.25rem;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            padding-bottom: 0.75rem;
+            position: relative;
+            font-weight: 700;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin: 2rem 0 1rem;
+        }
+
+        .card {
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+            border-color: var(--accent-color);
+        }
+
+        .card-image {
+          width: 100%;
+          height: auto;
+          display: block;
+          border-radius: 6px; /* optionnel */
+          margin-bottom: 1rem;
+        }
+
+        .card-split {
+          display: flex;
+          gap: 2rem;
+          align-items: flex-start;
+        }
+
+        .card-image-float {
+          width: 40%;
+          max-width: 150px;
+          height: auto;
+          object-fit: contain;
+          border-radius: 6px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-member {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+        }
+
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            background: var(--light-bg);
+            border: 3px solid var(--light-bg);
+        }
+
+        .publication {
+            border-left: 3px solid var(--accent-color);
+            padding-left: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .publication:hover {
+            border-left-color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .publication-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .publication-authors {
+            color: var(--light-text);
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+
+        .publication-meta {
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        .resources-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .resources-list li {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .resources-list li:last-child {
+            border-bottom: none;
+        }
+
+        .resource-link {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .resource-link:hover {
+            text-decoration: underline;
+            color: var(--accent-color);
+        }
+
+        .contact-info {
+            background: var(--light-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        footer {
+            background: #f8fafc;
+            color: var(--text-color);
+            padding: 3rem 2rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .footer-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .footer-logo {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+            opacity: 0.6;
+            transition: opacity 0.3s, transform 0.3s;
+            filter: grayscale(100%);
+        }
+
+        .footer-logo:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+            filter: grayscale(0%);
+        }
+
+        .footer-text {
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .hero {
+                padding: 4rem 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .container {
+                padding: 2rem 1.5rem;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            h2 {
+                font-size: 1.75rem;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="#about" class="sidebar-logo">Gallic(orpor)a</a>
+            <p class="sidebar-tagline">Mass digitisation of historical documents</p>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="sidebar-item">
+                <a href="#project" class="sidebar-link">Project</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#datasets" class="sidebar-link">Datasets</a>
+                <ul class="sidebar-submenu">
+                    <li><a href="#layout" class="sidebar-sublink">Layout analysis</a></li>
+                    <li><a href="#transcription" class="sidebar-sublink">Automatic Text Transcription</a></li>
+                    <li><a href="#lemmatization" class="sidebar-sublink">Lemmatisation</a></li>
+                </ul>
+            </li>
+            <li class="sidebar-item">
+                <a href="#team" class="sidebar-link">Team</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#publications" class="sidebar-link">Publications</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#resources" class="sidebar-link">Resources</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#contact" class="sidebar-link">Contact</a>
+            </li>
+        </ul>
+    </aside>
+
+    <div class="main-content">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Gallic(orpor)a</h1>
+                <p>A collaborative initiative between research and heritage institutions aimed at extracting structured information from historical digitized documents</p>
+            </div>
+        </section>
+
+        <section class="stats-banner">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-number">32M+</div>
+                    <div class="stat-label">Lines</div>
+                    <div class="stat-description">transcribed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3.4M+</div>
+                    <div class="stat-label">Zones</div>
+                    <div class="stat-description">drawn and labbelled</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">73.6M+</div>
+                    <div class="stat-label">Tokens</div>
+                    <div class="stat-description">lemmatised</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+            <section id="project">
+                <h2>Project</h2>
+                <div class="card">
+                    <p>The Gallic(orpor)a project develops a pipeline for mass digitisation of historical documents. It focuses on French documents written between the 15th and the 18th centuries, may they be manuscripts, incunabula or prints. It focuses on three main tasks: document layout analysis, handwritten text recognition and linguistic annotation (lemmata, POS tags and morphology).</p>
+                    <p style="margin-top: 1rem;">This project, supported by a BnF DataLab grant, is a collaboration between several research institutions (École nationale des chartes, Inria, and the University of Geneva) and the Bibliothèque nationale de France.</p>
+                </div>
+            </section>
+
+            <section id="datasets">
+                <h2>Datasets</h2>
+                <div id="layout">
+                    <h3>Layout analysis</h3>
+                    <div class="card-split">
+                      <div class="card">
+                        <p>Layout analysis is a computer vision task that identifies and labels structural regions on a printed or handwritten document page. In our work, this process relies on a controlled vocabulary, SegmOnto, which provides a standardized conceptual framework for describing layout elements. Using such a vocabulary makes it possible to produce homogeneous, interoperable annotation data across documents, collections, and institutions, and ensures consistency in the representation of complex document structures.</p>
+                        <p style="margin-top: 1rem;">We have created the first dataset to train a model for layout analysis, containing data from the very beginning of the age of print until the end of the 18th c.</p>
+                      </div>
+
+                      <img src="images/btv1b86070385_f140_ann.jpg" class="card-image-float">
+                    </div>
+                </div>
+                <div id="transcription">
+                    <h3>Automatic Text Recognition</h3>
+                    <div class="card">
+                        <img class="card-image" src="images/btv1b84259980_29_lines.png">
+                        <p>Automatic text recognition is the process of converting textual content contained in images into machine-readable text, whether the source is printed or handwritten. In the case of historical documents, this task requires careful transcription choices, as the images often contain complex elements such as abbreviations, obsolete letter forms, and writing conventions that no longer exist in modern usage.</p>
+                        <p style="margin-top: 1rem;">To address these issues, we have created a training dataset covering documents from the late Middle Ages to the early modern period, with transcriptions harmonized according to a shared and consistent set of transcription rules.</p>
+                    </div>
+                </div>
+                <div id="lemmatization">
+                    <h3>Lemmatisation</h3>
+                    <div class="card">
+                        <p>Lemmatization is the linguistic process of reducing a word to its canonical or "dictionary" form, known as a lemma. It is an important NLP task for historical documents, because lemmatisers are traditionnally trained on contemporary French and not on old spellings and lexemes.</p>
+                        <p style="margin-top: 1rem;">Thanks to a new diachronic dataset (15th-18th c.), we contribute to the creation of more robust NLP tools for historical documents.</p>
+                    </div>
+                </div>
+
+            </section>
+
+            <section id="team">
+                <h2>Team</h2>
+                
+                <h3>Principal Investigators</h3>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <img src="people/pinchea.jpeg" alt="Principal Investigator">
+                        <h4>Ariane Pinche</h4>
+                        <p>Principal Investigator</p>
+                        <p style="margin-top: 0.5rem; color: #666; font-size: 0.9rem;">École nationale des chartes | PSL</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="people/gabays.jpeg" alt="Principal Investigator">
+                        <h4>Simon Gabay</h4>
+                        <p>Principal Investigator</p>
+                        <p style="margin-top: 0.5rem; color: #666; font-size: 0.9rem;">University of Geneva</p>
+                    </div>
+                </div>
+
+                <h3>Collaborators</h3>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <img src="people/christensenk.jpg" alt="Principal Investigator">
+                        <h4>Kelly Christensen</h4>
+                        <p>Intern</p>
+                        <p style="margin-top: 0.5rem; color: #666; font-size: 0.9rem;">Inria, Paris</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="people/vlachoum.jpg" alt="Principal Investigator">
+                        <h4>Malamatenia Vlachou-Efstathiou</h4>
+                        <p>Annotator</p>
+                        <p style="margin-top: 0.5rem; color: #666; font-size: 0.9rem;">École nationale des chartes | PSL</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="people/leroyn.jpeg" alt="Team Member">
+                        <h4>Noé Leroy</h4>
+                        <p>Annotator</p>
+                        <p style="margin-top: 0.5rem; color: #666; font-size: 0.9rem;">École nationale des chartes | PSL</p>
+                    </div>
+                </div>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Crect fill='%230f766e' width='150' height='150'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='48' font-family='Arial'%3EMN%3C/text%3E%3C/svg%3E" alt="Team Member">
+                        <h4>Maeva Nguyen</h4>
+                        <p>Annotator</p>
+                        <p style="margin-top: 0.5rem; color: #666; font-size: 0.9rem;">École nationale des chartes | PSL</p>
+                    </div>
+                  <div class="team-member">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Crect fill='%230f766e' width='150' height='150'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='48' font-family='Arial'%3EJL%3C/text%3E%3C/svg%3E" alt="Team Member">
+                        <h4>Johannes Laroche</h4>
+                        <p>Annotator</p>
+                        <p style="margin-top: 0.5rem; color: #666; font-size: 0.9rem;">École nationale des chartes | PSL</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Crect fill='%230f766e' width='150' height='150'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='48' font-family='Arial'%3EAL%3C/text%3E%3C/svg%3E" alt="Team Member">
+                        <h4>Malamatenia Vlachou-Efstathiou</h4>
+                        <p>Annotator</p>
+                    </div>
+                </div>
+                <h3>Partners</h3>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <img src="people/sagotb.jpg" alt="Principal Investigator">
+                        <h4>Benoît Sagot</h4>
+                        <p>Researcher</p>
+                        <p style="margin-top: 0.5rem; color: #666; font-size: 0.9rem;">Inria, Paris</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="people/romaryl.jpg" alt="Principal Investigator">
+                        <h4>Laurent Romary</h4>
+                        <p>Researcher</p>
+                        <p style="margin-top: 0.5rem; color: #666; font-size: 0.9rem;">Inria, Paris</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="people/bawdenr.jpeg" alt="Team Member">
+                        <h4>Rachel Bawden</h4>
+                        <p>Annotator</p>
+                        <p style="margin-top: 0.5rem; color: #666; font-size: 0.9rem;">École nationale des chartes | PSL</p>
+                    </div>
+                </div>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <img src="people/ortizp.jpg" alt="Principal Investigator">
+                        <h4>Pedro Ortiz Suarez</h4>
+                        <p>Researcher</p>
+                        <p style="margin-top: 0.5rem; color: #666; font-size: 0.9rem;">Inria, Paris</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="people/campsjb.jpg" alt="Principal Investigator">
+                        <h4>Jean-Baptiste Camps</h4>
+                        <p>Researcher</p>
+                        <p style="margin-top: 0.5rem; color: #666; font-size: 0.9rem;">École nationale des chartes | PSL</p>
+                    </div>
+                    <div class="team-member">
+
+                    </div>
+                </div>
+            </section>
+
+            <section id="publications">
+                <h2>Publications</h2>
+                <div class="card publication" onclick="window.open('https://doi.org/10.46298/jdmdh.12689', '_blank')">
+                    <div class="publication-title"> SegmOnto: A Controlled Vocabulary to Describe and Process Digital Facsimiles</div>
+                    <div class="publication-authors">Simon Gabay, Ariane Pinche, Kelly Christensen, Jean-Baptiste Camps</div>
+                    <div class="publication-meta"><i>Journal of Data Mining and Digital Humanities</i>, jdmdh:12689, 2024</div>
+                    <p style="margin-top: 0.5rem;">Our initiative aims at designing a controlled vocabulary for the description of the layout of textual sources: SegmOnto. Following a more physical approach rather than a strictly semantic one, it is designed as a pragmatic and generic typology, coping with most of the Western historical documents rather than answering specific needs. The harmonisation of the layout description has a double objective: on the one hand it facilitates the mutualisation of annotated data and therefore the training of better models for page segmentation (a crucial preliminary step for text recognition), on the other hand it allows the development of a shared post-processing workflow and pipeline for the transformation of ALTO or PAGE files into DH standard formats, which preserves as much as possible the link between the extracted information and the digital facsimile. To demonstrate the capacity of SegmOnto to answer both these objectives, we aggregate data from multiple projects to train a layout analysis model, and we propose a prototype of a generic pipeline for converting ALTO-XMLs into XML-TEI.</p>
+                </div>
+                <div class="card publication" onclick="window.open('https://hal.science/hal-04555002', '_blank')">
+                    <div class="publication-title">Océriser les imprimés du XVIe siècle en langue française : le cas d'un corpus romand en caractères gothiques</div>
+                    <div class="publication-authors">Sonia Solfrini, Simon Gabay, Maxime Humeau, Ariane Pinche, Pierre-Olivier Beaulnes, Aurélia Marques Oliveira, Geneviève Gross, Daniela Solfaroli Camillocci</div>
+                    <div class="publication-meta"><i>Humanistica 2024</i>, May 2024, Meknès, Maroc</div>
+                    <p style="margin-top: 0.5rem;">Depuis quelques années, la philologie computationnelle a ouvert la voie à de nouvelles approches pour l'étude des textes médiévaux et modernes. Ces approches nécessitent cependant des données en grande quantité que l'on ne peut obtenir qu'en extrayant les textes à partir des fac-similés numériques. Pour ce faire, la recherche a besoin d'outils efficaces, s'appuyant sur des guides qui garantissent une interopérabilité maximale entre les différents états d'une langue (ancien français, moyen français, etc.) et les différents types de textes (manuscrits, imprimés, etc.). Cet article se concentre sur la production imprimée du XVIe siècle, en langue française et en caractères gothiques, en prenant pour cas d'étude un corpus romand. Nous proposons deux modèles qui améliorent l'état de l'art actuel : l'un pour l'analyse de la mise en page et l'autre pour l'OCR. Ces modèles s'appuient sur un vocabulaire contrôlé pour la description des pages et sur un guide de transcription pour les textes en gothique.</p>
+                </div>
+                <div class="card publication" onclick="window.open('https://hal.science/hal-03780302', '_blank')">
+                    <div class="publication-title">Between automatic and manual encoding: towards a generic TEI model for historical prints and manuscripts</div>
+                    <div class="publication-authors">Ariane Pinche, Kelly Christensen, Simon Gabay</div>
+                    <div class="publication-meta"><i>Text Encoding Initiative 2022 conference: Text as data</i> (TEI), Sep 2022, Newcastle, United Kingdom.</div>
+                    <p style="margin-top: 0.5rem;">Cultural heritage institutions today aim to digitise their collections of prints and manuscripts (Bermès 2020) and are generating more and more digital images (Gray 2009). To enrich these images, many institutions work with standardised formats such as IIIF, preserving as much of the source’s information as possible. To take full advantage of textual documents, an image alone is not enough. Thanks to automatic text recognition technology, it is now possible to extract images’ content on a large scale. The TEI seems to provide the perfect format to capture both an image’s formal and textual data (Janès et al. 2021). However, this poses a problem. To ensure compatibility with a range of use cases, TEI XML files must guarantee IIIF or RDF exports and therefore must be based on strict data structures that can be automated. But a rigid structure contradicts the basic principles of philology, which require maximum flexibility to cope with various situations. The solution proposed by the Gallic(orpor)a project1 attempted to deal with such a contradiction, focusing on French historical documents produced between the 15th and the 18th c. It aims to enrich the digital facsimiles distributed by the French National Library (BnF).</p>
+                </div>
+                <div class="card publication" onclick="window.open('https://hal.science/hal-03527287', '_blank')">
+                    <div class="publication-title">Towards automatic TEI encoding via layout analysis</div>
+                    <div class="publication-authors">Juliette Janès, Ariane Pinche, Claire Jahan, Simon Gabay</div>
+                    <div class="publication-meta"><i>Fantastic future 21, 3rd International Conference on Artificial Intelligence for Librairies</i>, Archives and Museums, AI for Libraries, Archives, and Museums (ai4lam), Dec 2021, Paris, France.</div>
+                    <p style="margin-top: 0.5rem;">The forefront of research on textual documents (may they be manuscripts and prints) is slowly moving from text recognition to automatic encoding. Quickly transforming images into XML-TEI documents is therefore the next important obstacle that needs to be tackled to offer enhanced mining options to digital libraries users.</p>
+                </div>
+                <div class="card publication" onclick="window.open('https://hal.science/hal-02571190', '_blank')">
+                    <div class="publication-title">Manuel d'annotation linguistique pour le français moderne (XVIe -XVIIIe siècles)</div>
+                    <div class="publication-authors">Simon Gabay, Jean-Baptiste Camps, Thibault Clérice</div>
+                    <div class="publication-meta">Working document.</div>
+                    <p style="margin-top: 0.5rem;">Recommandations for the annotation of classical French: tokenisation, lemmatisation, Part of speech tagging, morphology.</p>
+                </div>
+            </section>
+
+            <section id="resources">
+                <h2>Resources</h2>
+                <div class="card">
+                    <ul class="resources-list">
+                        <li>
+                            <a href="https://github.com/Gallicorpora/HTR-imprime-18e-siecle" class="resource-link" target="_blank">Dataset: Gallicorpora/HTR-imprime-18e-siecle</a>
+                            <p style="margin-top: 0.5rem; color: #666;">Simon Gabay, Ariane Pinche</p>
+                        </li>
+                        <li>
+                            <a href="https://github.com/Gallicorpora/HTR-imprime-17e-siecle" class="resource-link" target="_blank">Dataset: Gallicorpora/HTR-imprime-17e-siecle</a>
+                            <p style="margin-top: 0.5rem; color: #666;">Malamatenia Vlachou-Efstathiou, Simon Gabay, Ariane Pinche</p>
+                        </li>
+                        <li>
+                            <a href="https://github.com/Gallicorpora/HTR-imprime-16e-siecle" class="resource-link" target="_blank">Dataset: Gallicorpora/HTR-imprime-16e-siecle</a>
+                            <p style="margin-top: 0.5rem; color: #666;">Malamatenia Vlachou-Efstathiou, Simon Gabay, Ariane Pinche</p>
+                        </li>
+                        <li>
+                            <a href="https://github.com/Gallicorpora/HTR-incunable-15e-siecle" class="resource-link" target="_blank">Dataset: Gallicorpora/HTR-incunable-15e-siecle</a>
+                            <p style="margin-top: 0.5rem; color: #666;">Noé Leroy, Ariane Pinche, Simon Gabay</p>
+                        </li>
+                        <li>
+                            <a href="https://github.com/Gallicorpora/HTR-MSS-15e-Siecle" class="resource-link" target="_blank">Dataset: Gallicorpora/HTR-MSS-15e-Siecle</a>
+                            <p style="margin-top: 0.5rem; color: #666;">Noé Leroy, Ariane Pinche, Simon Gabay</p>
+                        </li>
+                        <li>
+                            <a href="https://github.com/Gallicorpora/Lemmatisation" class="resource-link" target="_blank">Dataset: Gallicorpora/Lemmatisation</a>
+                            <p style="margin-top: 0.5rem; color: #666;">Johannes Laroche, Maeva Nguyen, Ariane Pinche, Simon Gabay</p>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="contact">
+                <h2>Contact</h2>
+                <div class="contact-info">
+                    <p><strong>Email:</strong> ariane.pinche@cnrs.fr / simon.gabay@unige.ch</p>
+                    <p style="margin-top: 0.5rem;"><strong>Address:</strong> CIHAM, CNRS, Lyon, France / Humanités numériques, Université de Genève, Geneva, Switzerland</p>
+                    <p style="margin-top: 1.5rem;">For inquiries about collaboration, data access, or other questions, please reach out via email.</p>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-logos">
+                    <img src="logos/bnf.png" alt="Institution 1" class="footer-logo">
+                    <img src="logos/enc.png" alt="Institution 2" class="footer-logo">
+                    <img src="logos/inria.png" alt="Institution 3" class="footer-logo">
+                    <img src="logos/unige.png" alt="Funding Body" class="footer-logo">
+                </div>
+                <div class="footer-text">
+                    <p><a href="https://creativecommons.org/licenses/by/4.0" style="color:darkgrey">CC-BY 4.0</a>, 2026, Gallic(orpor)a Project.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile sidebar
+                    if (window.innerWidth <= 968) {
+                        document.getElementById('sidebar').classList.remove('active');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
