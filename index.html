@@ -602,8 +602,8 @@
             <section id="project">
                 <h2>Project</h2>
                 <div class="card">
-                    <p>The Gallic(orpor)a project develops a pipeline for mass digitisation of historical documents. It focuses on French documents written between the 15th and the 18th centuries, may they be manuscripts, incunabula or prints. It focuses on three main tasks: document layout analysis, handwritten text recognition and linguistic annotation (lemmata, POS tags and morphology).</p>
-                    <p style="margin-top: 1rem;">This project, supported by a BnF DataLab grant, is a collaboration between several research institutions (École nationale des chartes, Inria, and the University of Geneva) and the Bibliothèque nationale de France.</p>
+                    <p>The Gallic(orpor)a project develops a pipeline for mass digitisation of historical documents. It focuses on French documents written between the 15th and the 18th centuries, may they be manuscripts, incunabula or prints. The project addresses three main tasks: document layout analysis, handwritten text recognition and linguistic annotation (lemmata, POS tags and morphology).</p>
+                    <p style="margin-top: 1rem;">Gallic(orpor)a, supported by a BnF DataLab grant, is a collaboration between several research institutions (École nationale des chartes, Inria, University of Geneva) and the Bibliothèque nationale de France.</p>
                 </div>
             </section>
 
@@ -614,8 +614,9 @@
                     <div class="task-block">
                         <div class="task-content">
                             <div class="card">
-                                <p>Layout analysis is a computer vision task that identifies and labels structural regions on a printed or handwritten document page. In our work, this process relies on a controlled vocabulary, SegmOnto, which provides a standardized conceptual framework for describing layout elements. Using such a vocabulary makes it possible to produce homogeneous, interoperable annotation data across documents, collections, and institutions, and ensures consistency in the representation of complex document structures.</p>
-                                <p style="margin-top: 1rem;">We have created the first dataset to train a model for layout analysis, containing data from the very beginning of the age of print until the end of the 18th c.</p>
+                                <p>Layout analysis is a computer vision task that identifies and labels structural regions on printed or handwritten document pages. In our work, this process leverages a controlled vocabulary, <em>SegmOnto</em>, developed as part of the Gallic(orpor)a project, which provides a standardized conceptual framework for describing layout elements. By using such a vocabulary, we can produce homogeneous, interoperable annotation data across documents, collections, and institutions, ensuring consistent representation of complex document structures.</p>
+
+                                <p style="margin-top: 1rem;">We have created the first dataset specifically designed to train a model for layout analysis, covering documents from the earliest printed works through the end of the 18th century.</p>
                             </div>
                         </div>
                         <img src="images/segmentation.png" alt="Segmentation" class="task-image">
@@ -627,15 +628,15 @@
                         <img class="task-image" src="images/transcription.png">
                    
                     <div class="card">
-                        <p>Automatic text recognition is the process of converting textual content contained in images into machine-readable text, whether the source is printed or handwritten. In the case of historical documents, this task requires careful transcription choices, as the images often contain complex elements such as abbreviations, obsolete letter forms, and writing conventions that no longer exist in modern usage.</p>
-                        <p style="margin-top: 1rem;">To address these issues, we have created a training dataset covering documents from the late Middle Ages to the early modern period, with transcriptions harmonized according to a shared and consistent set of transcription rules.</p>
+                        <p>Automatic text recognition is the process of converting textual content in images into machine-readable text, whether the source is printed or handwritten. For historical documents, this task requires careful transcription decisions, as the images often contain complex elements such as abbreviations, obsolete letter forms, and writing conventions that are no longer used in modern texts.</p>
+                        <p style="margin-top: 1rem;">To address these challenges, we have created a training dataset spanning documents from the late Middle Ages through the early modern period, with transcriptions harmonized according to a standardized and consistent set of rules.</p>
                     </div>
                 </div>
                 <div id="lemmatization">
                     <h3>Lemmatisation</h3>
                     <div class="card">
-                        <p>Lemmatization is the linguistic process of reducing a word to its canonical or "dictionary" form, known as a lemma. It is an important NLP task for historical documents, because lemmatisers are traditionnally trained on contemporary French and not on old spellings and lexemes.</p>
-                        <p style="margin-top: 1rem;">Thanks to a new diachronic dataset (15th-18th c.), we contribute to the creation of more robust NLP tools for historical documents.</p>
+                        <p>Lemmatization is the linguistic process of reducing a word to its canonical or “dictionary” form, known as a lemma. This task is particularly important for historical documents, as lemmatizers are typically trained on contemporary French and do not account for historical spellings and lexemes (_estoit_ vs _était_).</p>
+                        <p style="margin-top: 1rem;">Using a new diachronic dataset spanning the 15th to 18th centuries, we contribute to the development of more robust NLP tools tailored for historical texts.</p>
                     </div>
                 </div>
 
