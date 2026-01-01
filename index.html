@@ -616,7 +616,7 @@
                             <div class="card">
                                 <p>Layout analysis is a computer vision task that identifies and labels structural regions on printed or handwritten document pages. In our work, this process leverages a controlled vocabulary, <em>SegmOnto</em>, developed as part of the Gallic(orpor)a project, which provides a standardized conceptual framework for describing layout elements. By using such a vocabulary, we can produce homogeneous, interoperable annotation data across documents, collections, and institutions, ensuring consistent representation of complex document structures.</p>
 
-                                <p style="margin-top: 1rem;">We have created the first dataset specifically designed to train a model for layout analysis, covering documents from the earliest printed works through the end of the 18th century.</p>
+                                <p style="margin-top: 1rem;">We have created the first dataset specifically designed to train a model for historical layout analysis (3.4M+ zones), covering documents from the earliest printed works through the end of the 18th century.</p>
                             </div>
                         </div>
                         <img src="images/segmentation.png" alt="Segmentation" class="task-image">
@@ -629,14 +629,14 @@
                    
                     <div class="card">
                         <p>Automatic text recognition is the process of converting textual content in images into machine-readable text, whether the source is printed or handwritten. For historical documents, this task requires careful transcription decisions, as the images often contain complex elements such as abbreviations, obsolete letter forms, and writing conventions that are no longer used in modern texts.</p>
-                        <p style="margin-top: 1rem;">To address these challenges, we have created a training dataset spanning documents from the late Middle Ages through the early modern period, with transcriptions harmonized according to a standardized and consistent set of rules.</p>
+                        <p style="margin-top: 1rem;">To address these challenges, we have created a training dataset (32M+ lines) spanning documents from the late Middle Ages through the early modern period, with transcriptions harmonized according to a standardized and consistent set of rules.</p>
                     </div>
                 </div>
                 <div id="lemmatization">
                     <h3>Lemmatisation</h3>
                     <div class="card">
-                        <p>Lemmatization is the linguistic process of reducing a word to its canonical or “dictionary” form, known as a lemma. This task is particularly important for historical documents, as lemmatizers are typically trained on contemporary French and do not account for historical spellings and lexemes (_estoit_ vs _était_).</p>
-                        <p style="margin-top: 1rem;">Using a new diachronic dataset spanning the 15th to 18th centuries, we contribute to the development of more robust NLP tools tailored for historical texts.</p>
+                        <p>Lemmatization is the linguistic process of reducing a word to its canonical or “dictionary” form, known as a lemma. This task is particularly important for historical documents, as lemmatizers are typically trained on contemporary French and do not account for historical spellings and lexemes (<i>estoit</i> vs <i>était</i>).</p>
+                        <p style="margin-top: 1rem;">We have created a new diachronic dataset (73.6M+ tokens) spanning the 15th to 18th centuries, which enables the training of more robust NLP models specifically designed for historical texts.</p>
                     </div>
                 </div>
 
