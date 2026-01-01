@@ -145,7 +145,7 @@
         .hero {
             background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             color: var(--text-color);
-            padding: 5rem 3rem;
+            padding: 3rem 3rem;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -181,6 +181,20 @@
             font-size: 1.3rem;
             opacity: 0.95;
             font-weight: 300;
+        }
+
+        .hero-image-section {
+            width: 100%;
+            max-height: 400px;
+            overflow: hidden;
+            background: var(--light-bg);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero-image {
+            width: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         .stats-banner {
@@ -238,6 +252,11 @@
         section {
             margin-bottom: 4rem;
         }
+        .hero,
+        .hero-image-section,
+        .stats-banner {
+            margin-bottom: 0;
+        }
 
         h2 {
             font-size: 2.25rem;
@@ -281,26 +300,40 @@
             border-color: var(--accent-color);
         }
 
+        .task-block {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+            align-items: start;
+            margin-bottom: 2rem;
+        }
+
+        .task-content {
+            flex: 1;
+        }
+
+        .task-image {
+            width: 100%;
+            max-height: 350px;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .task-block.reverse {
+            grid-template-columns: 300px 1fr;
+        }
+
+        .task-block.reverse .task-image {
+            order: -1;
+        }
+
         .card-image {
           width: 100%;
           height: auto;
           display: block;
           border-radius: 6px; /* optionnel */
           margin-bottom: 1rem;
-        }
-
-        .card-split {
-          display: flex;
-          gap: 2rem;
-          align-items: flex-start;
-        }
-
-        .card-image-float {
-          width: 40%;
-          max-width: 150px;
-          height: auto;
-          object-fit: contain;
-          border-radius: 6px;
         }
 
         .team-grid {
@@ -541,6 +574,10 @@
             </div>
         </section>
 
+        <section class="hero-image-section">
+            <img src="images/illustration.png" alt="Research visualization" class="hero-image">
+        </section>
+
         <section class="stats-banner">
             <div class="stats-container">
                 <div class="stat-item">
@@ -574,19 +611,22 @@
                 <h2>Datasets</h2>
                 <div id="layout">
                     <h3>Layout analysis</h3>
-                    <div class="card-split">
-                      <div class="card">
-                        <p>Layout analysis is a computer vision task that identifies and labels structural regions on a printed or handwritten document page. In our work, this process relies on a controlled vocabulary, SegmOnto, which provides a standardized conceptual framework for describing layout elements. Using such a vocabulary makes it possible to produce homogeneous, interoperable annotation data across documents, collections, and institutions, and ensures consistency in the representation of complex document structures.</p>
-                        <p style="margin-top: 1rem;">We have created the first dataset to train a model for layout analysis, containing data from the very beginning of the age of print until the end of the 18th c.</p>
-                      </div>
-
-                      <img src="images/btv1b86070385_f140_ann.jpg" class="card-image-float">
+                    <div class="task-block">
+                        <div class="task-content">
+                            <div class="card">
+                                <p>Layout analysis is a computer vision task that identifies and labels structural regions on a printed or handwritten document page. In our work, this process relies on a controlled vocabulary, SegmOnto, which provides a standardized conceptual framework for describing layout elements. Using such a vocabulary makes it possible to produce homogeneous, interoperable annotation data across documents, collections, and institutions, and ensures consistency in the representation of complex document structures.</p>
+                                <p style="margin-top: 1rem;">We have created the first dataset to train a model for layout analysis, containing data from the very beginning of the age of print until the end of the 18th c.</p>
+                            </div>
+                        </div>
+                        <img src="images/segmentation.png" alt="Segmentation" class="task-image">
                     </div>
                 </div>
                 <div id="transcription">
                     <h3>Automatic Text Recognition</h3>
+                   
+                        <img class="task-image" src="images/transcription.png">
+                   
                     <div class="card">
-                        <img class="card-image" src="images/btv1b84259980_29_lines.png">
                         <p>Automatic text recognition is the process of converting textual content contained in images into machine-readable text, whether the source is printed or handwritten. In the case of historical documents, this task requires careful transcription choices, as the images often contain complex elements such as abbreviations, obsolete letter forms, and writing conventions that no longer exist in modern usage.</p>
                         <p style="margin-top: 1rem;">To address these issues, we have created a training dataset covering documents from the late Middle Ages to the early modern period, with transcriptions harmonized according to a shared and consistent set of transcription rules.</p>
                     </div>
@@ -761,6 +801,14 @@
                         <li>
                             <a href="https://github.com/Gallicorpora/Lemmatisation" class="resource-link" target="_blank">Dataset: Gallicorpora/Lemmatisation</a>
                             <p style="margin-top: 0.5rem; color: #666;">Johannes Laroche, Maeva Nguyen, Ariane Pinche, Simon Gabay</p>
+                        </li>
+                        <li>
+                            <a href="https://doi.org/10.5281/zenodo.10602196" class="resource-link" target="_blank">Segmentation model: SegmOnto Capricciosa</a>
+                            <p style="margin-top: 0.5rem; color: #666;">Maxime Humeau, Simon Gabay, Ariane Pinche</p>
+                        </li>
+                        <li>
+                            <a href="https://github.com/Gallicorpora/Segmentation-and-HTR-Models/releases/download/1.0.0/Gallicorpora+_best.mlmodel" class="resource-link" target="_blank">ATR model: Gallicorpora+</a>
+                            <p style="margin-top: 0.5rem; color: #666;">Ariane Pinche, Simon Gabay</p>
                         </li>
                     </ul>
                 </div>
